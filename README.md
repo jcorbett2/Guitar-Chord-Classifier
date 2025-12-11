@@ -35,19 +35,49 @@ This can be any directory but the "user_input" directory contains all the test f
 
 ## Structure of user_input:
 
-test1
+user_input/
 
-test2
+    test1/
 
-test3
+        test1-1.wav
 
-test4
+        test1-2.wav
 
-test5
+    test2/
 
-test6
+        test2-1.wav
 
-test7
+        test2-2.wav
+
+    test3/
+
+        test3-1.wav
+
+        test3-2.wav
+
+    test4/
+
+        test4-1.wav
+
+        test4-2.wav
+
+    test5/
+
+        test5-1.wav
+
+        test5-2.wav
+
+    test6/
+
+        test6-1.wav
+
+        test6-2.wav
+
+    test7/
+
+        test7-1.wav
+
+        test7-2.wav
 
 
 # Description
