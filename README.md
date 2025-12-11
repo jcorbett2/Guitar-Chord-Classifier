@@ -5,30 +5,35 @@ This is the Final for my AI 3300 class. It is a guitar chord classifier
 To get started there is a requirements.txt file that the user can use to download all the necessary dependencies for this project.
 
 
-Create Virtual Environment:
+## Create Virtual Environment:
 
 Python3 -m venv venv_name
 
 
-Enter the virtual Environment:
+
+## Enter the virtual Environment:
 
 source venv_name/bin/activate
 
 
-Download dependencies:
+
+## Download dependencies:
 
 pip install requirements.txt
 
 
-Finally to run the project and start classifying chords:
+
+## To run the project and start classifying chords:
 
 Python main.py ./user_input/"file_name"
+
 
 
 This can be any directory but the "user_input" directory contains all the test files I used and contains plenty of options for the user to play around with. If you would like to test your own audio clips you can do this by creating a folder on the repository and adding your own .wav files to it!
 
 
-Structure of user_input:
+
+## Structure of user_input:
 
 test1
 
