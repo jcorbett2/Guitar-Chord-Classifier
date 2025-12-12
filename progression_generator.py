@@ -62,6 +62,9 @@ def generate_progression(roman_sequence, lstm_model, num_steps=1, temperature=1.
 
 
 
+
+
+
 if __name__ == "__main__":
     ## Quick test
     test_roman = ["I", "IV", "V", "I"]
