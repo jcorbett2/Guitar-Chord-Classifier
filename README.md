@@ -7,7 +7,7 @@ This project is split into 3 main sections. The first is the classifier model wh
 
 The second part is the music theory logic which tells the user, based on the chords played, what key that combination of chords is most likely in. 
 
-This is then given to the third part of the project which is another AI model trained to give the user a commonly used chord progression based on the chords being played in that key. The architecture for this model is a type of recurrent neural network called an LSTM, or a long short-term memoery model. It is trained on a small dataset of common chord progressions to predict the next token in the sequence given a list of chords.
+This is then given to the third part of the project which is another AI model trained to give the user a commonly used chord progression based on the chords being played in that key. The architecture for this model is a type of recurrent neural network called an LSTM, or a long short-term memory model. It is trained on a small dataset of common chord progressions to predict the next token in the sequence given a list of chords.
 
 
 
