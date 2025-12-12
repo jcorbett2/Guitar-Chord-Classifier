@@ -36,11 +36,17 @@ This can be any directory but the "user_input" directory contains all the test f
 ## Structure of user_input:
 
 user_input/
+
     2_chord_clips/
+
         test1/
+
             test1-1.wav
+
             test1-2.wav
+
     3_chord_clips/
+    
     4_chord_clips/
 
 
