@@ -36,48 +36,15 @@ This can be any directory but the "user_input" directory contains all the test f
 ## Structure of user_input:
 
 user_input/
+    2_chord_clips/
+        test1/
+            test1-1.wav
+            test1-2.wav
+    3_chord_clips/
+    4_chord_clips/
 
-    test1/
 
-        test1-1.wav
-
-        test1-2.wav
-
-    test2/
-
-        test2-1.wav
-
-        test2-2.wav
-
-    test3/
-
-        test3-1.wav
-
-        test3-2.wav
-
-    test4/
-
-        test4-1.wav
-
-        test4-2.wav
-
-    test5/
-
-        test5-1.wav
-
-        test5-2.wav
-
-    test6/
-
-        test6-1.wav
-
-        test6-2.wav
-    
-    test7/
-
-        test7-1.wav
-
-        test7-2.wav
+Each of the 3 directories in user_input contain 6 tests for the 3 different numbers of chord tests. All audio clips used to train and test the model were recorded by me.
 
 
 # Description
