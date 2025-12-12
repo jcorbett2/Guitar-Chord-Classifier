@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-"""
-Key analysis: detect most likely key and map chords to Roman numerals.
-"""
 from collections import defaultdict
 import re
 
@@ -32,6 +28,7 @@ KEYS = {
     "A# Minor": ["A#m", "B#dim", "C#", "D#m", "E#m", "F#", "G#"],
 }
 
+## Roman numeral mappings
 ROMAN_NUMERALS = {
     1: "I",
     2: "ii",
@@ -42,12 +39,13 @@ ROMAN_NUMERALS = {
     7: "vii°"
 }
 
+
+
+
+## Normalize chord names from model output to standard notation
+## A major -> A, A minor -> Am, etc.
 def normalize_chord_name(chord_name):
-    """
-    Normalize chord names to standard notation.
-    E.g., "Amajor" -> "A", "Aminor" -> "Am", "Cmajor" -> "C"
-    Handles: root (A-G with optional #/b) + optional quality (major/minor/maj/min/m)
-    """
+
     chord_name = chord_name.strip()
     
     # Remove common suffixes
@@ -59,12 +57,13 @@ def normalize_chord_name(chord_name):
     
     return chord_name
 
+
+
+
+
+## Determine the most likely key from a list of detected chords
 def find_most_likely_key(predicted_chords):
-    """
-    Find the most likely key given a list of detected chords.
-    Normalizes chord names and handles edge cases.
-    Returns: (best_key, diatonic_chords, mapped_chords_with_degrees)
-    """
+
     # Normalize all chord names
     normalized_chords = [normalize_chord_name(c) for c in predicted_chords]
     
@@ -80,7 +79,7 @@ def find_most_likely_key(predicted_chords):
     
     # Handle case where no keys score (fallback to A Major)
     if not key_scores:
-        print("⚠️  Warning: No matching keys found. Defaulting to A Major.")
+        print("Warning: No matching keys found. Defaulting to A Major.")
         best_key = "A Major"
     else:
         ranked = sorted(key_scores.items(), key=lambda x: x[1], reverse=True)
@@ -101,20 +100,26 @@ def find_most_likely_key(predicted_chords):
     
     return best_key, diatonic_chords, mapped
 
+
+
+
+
+
+## Convert scale degree to Roman numeral then extract sequence
 def get_roman_numeral(degree):
-    """Convert scale degree (1-7) to Roman numeral."""
     return ROMAN_NUMERALS.get(degree, "?")
 
 def extract_roman_numerals(mapped_chords):
-    """
-    Extract Roman numerals from mapped chords.
-    Returns list of Roman numerals (skipping non-diatonic chords).
-    """
     roman_seq = []
     for chord, degree in mapped_chords:
         if degree is not None:
             roman_seq.append(get_roman_numeral(degree))
     return roman_seq
+
+
+
+
+
 
 if __name__ == "__main__":
     # Quick test

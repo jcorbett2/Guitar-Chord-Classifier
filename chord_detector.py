@@ -1,19 +1,19 @@
-#!/usr/bin/env python3
-"""
-Chord detection from audio files using a trained CNN model.
-"""
 import os
 import numpy as np
 import librosa
 import tensorflow as tf
 
+
+## Load class names from dataset directory
 def load_class_names(base_path="datasets"):
-    """Load chord names from dataset folder structure."""
     names = sorted([d for d in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, d))])
     return names
 
+
+
+## Get expected input shape of model
+## If chroma CQT, expect (12, T, 1) otherwise try mel-spectrogram
 def get_model_input_shape(model):
-    """Infer expected input shape (n_bins, max_len) from model."""
     try:
         ishp = model.input_shape
     except Exception:
@@ -32,8 +32,11 @@ def get_model_input_shape(model):
     except Exception:
         return None, None
 
+
+
+
+## Convert WAV to Chroma CQT feature
 def wav_to_chroma_cqt(path, n_chroma=12, max_len=256, sr=22050, hop_length=512):
-    """Convert WAV to Chroma CQT feature."""
     y, _ = librosa.load(path, sr=sr)
     y, _ = librosa.effects.trim(y, top_db=35)
     
@@ -49,6 +52,12 @@ def wav_to_chroma_cqt(path, n_chroma=12, max_len=256, sr=22050, hop_length=512):
     
     return chroma_db[..., np.newaxis]
 
+
+
+
+
+
+## Convert WAV to Mel-spectrogram feature
 def wav_to_melspec(path, n_mels=128, max_len=256, sr=22050, n_fft=2048, hop_length=512):
     """Convert WAV to Mel-spectrogram feature."""
     y, _ = librosa.load(path, sr=sr)
@@ -65,22 +74,28 @@ def wav_to_melspec(path, n_mels=128, max_len=256, sr=22050, n_fft=2048, hop_leng
     
     return mel_db[..., np.newaxis]
 
+
+
+
+
+
+## Detect chords from all WAV files in a directory
 def detect_chords_from_directory(directory, model, class_names, expected_n=None, expected_t=None, verbose=True):
-    """
-    Detect chords from all WAV files in a directory.
-    Returns list of (filename, chord, confidence).
-    """
+   
     files = sorted([os.path.join(directory, f) for f in os.listdir(directory) 
                    if f.lower().endswith('.wav')])
     
+    ## Return empty if no files found
     if not files:
         return []
     
+
+    ## Process each file
     results = []
     for filepath in files:
         filename = os.path.basename(filepath)
         if verbose:
-            print(f"🎵 Processing: {filename}")
+            print(f"Processing: {filename}")
         
         # Choose feature type based on expected input shape
         if expected_n == 12:
@@ -95,7 +110,7 @@ def detect_chords_from_directory(directory, model, class_names, expected_n=None,
             preds = model.predict(x, verbose=0)
         except Exception as e:
             if verbose:
-                print(f"  ❌ Prediction failed: {e}")
+                print(f"Prediction failed: {e}")
             continue
         
         idx = int(np.argmax(preds))
@@ -103,17 +118,25 @@ def detect_chords_from_directory(directory, model, class_names, expected_n=None,
         chord = class_names[idx] if idx < len(class_names) else f"idx_{idx}"
         
         if verbose:
-            print(f"  ➤ {chord}  (confidence: {conf:.2f})")
+            print(f"{chord}  (confidence: {conf:.2f})\n")
         
         results.append((filename, chord, conf))
     
     return results
 
+
+
+
+## load CNN model
 def load_cnn_model(model_path):
-    """Load a saved Keras CNN model."""
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model not found: {model_path}")
     return tf.keras.models.load_model(model_path)
+
+
+
+
+
 
 if __name__ == "__main__":
     # Quick test
@@ -131,4 +154,4 @@ if __name__ == "__main__":
     
     results = detect_chords_from_directory(directory, model, class_names, expected_n, expected_t)
     chords = [chord for _, chord, _ in results]
-    print("\n🎶 Detected chords:", chords)
+    print("\nDetected chords:", chords)
