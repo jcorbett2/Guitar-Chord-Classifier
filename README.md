@@ -1,5 +1,4 @@
 # Guitar-Chord-Classifier
-This is the Final for my AI 3300 class. It is a guitar chord classifier
 
 
 # Description
@@ -11,14 +10,20 @@ This is then given to the third part of the project which is another AI model tr
 
 
 
-# How to Use
-To get started there is a requirements.txt file that the user can use to download all the necessary dependencies for this project.
+# How to Use (Web Based Application)
+To use this app all you need to do is to open two terminals. In the first one make sure you are in the "Frontend" folder and type **npm start**
+
+Then in the second terminal, while in the "backend" folder type the command **Python3 app.py**
+
+
+
+# How to Use (Terminal Based Application)
+To get started there is a requirements.txt file that the user can use to download all the necessary dependencies for this project. This section is contained in the "backend" folder. If you just want the terminal based application you do not need to use the frontend!
 
 
 ## Create Virtual Environment:
 
 Python3 -m venv venv_name
-
 
 
 ## Enter the virtual Environment:
